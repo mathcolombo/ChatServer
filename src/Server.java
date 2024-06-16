@@ -13,9 +13,10 @@ public class Server {
 
     public void start() throws IOException{
         String LOCAL_IP = InetAddress.getLocalHost().getHostAddress(); // Armazena o IP local
-        System.out.println("O seu IP é " + LOCAL_IP); // Mostra o IP local para o cliente
         
-        System.out.println("Servidor iniciado na porta " + PORT);
+        System.out.println("Servidor iniciado na porta " + PORT + " / IP: " + LOCAL_IP);
+
+
         serverSocket = new ServerSocket(PORT);
         clientConnectionLoop();
     }
