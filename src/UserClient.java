@@ -1,6 +1,6 @@
 public class UserClient {
     
-    public InOutSocket ipUser;
+    public InOutSocket ipUser; // Socket recebido na criação da conexão
     public String name;
 
     public UserClient(InOutSocket ipUser, String name) {

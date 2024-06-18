@@ -7,6 +7,7 @@ public class ChatClient implements Runnable{
     private String serverAddress;
     private InOutSocket inOutSocket;
     private Scanner scan;
+    private String formatt = "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
 
     public ChatClient() {
         scan = new Scanner(System.in);
@@ -23,6 +24,10 @@ public class ChatClient implements Runnable{
             String username = scan.nextLine();
             inOutSocket.sendMessage(username); // Envia para o servidor o Username do cliente
 
+            System.out.println(formatt);
+            System.out.println("Padrão de mensagem -> @username@ mensagem");
+            System.out.println(formatt);
+
             new Thread(this).start();
             messageLoop();
 
@@ -34,12 +39,24 @@ public class ChatClient implements Runnable{
     private void messageLoop() {
         String message;
         do {
-            System.out.print("Digite uma mensagem: ");
+            System.out.print("Digite sua mensagem >> ");
             message = scan.nextLine();
+
+            while(true) {
+                String brokenMessage[] = message.split("@");
+
+                if((brokenMessage.length == 3) || (message.equalsIgnoreCase("!exit"))) break;
+
+                System.out.println(formatt);
+                System.err.println("Por favor, digite sua mensagem no padrão estabelecido \nPadrão de mensagem -> @username@ mensagem");
+                System.out.println(formatt);
+                System.out.print("Digite sua mensagem >> ");
+                message = scan.nextLine();
+            }
 
             inOutSocket.sendMessage(message);
             
-        } while (!message.equalsIgnoreCase("exit"));
+        } while (!message.equalsIgnoreCase("!exit"));
     }
 
     @Override

@@ -5,9 +5,11 @@ RUN apt -y update
 RUN apt install -y net-tools inetutils-ping 
 RUN apt install -y openjdk-21-jdk
 RUN mkdir /app
-COPY ChatServerClient.jar /app/
+COPY Client.jar /app/
 
-# PASSO A PASSO PARA RODAR O DOCKER E A APLICAÇÃO # 
-# -> docker run -it chatserverclient # - (cria um container com a imagem chatserver)
+# PASSO A PASSO PARA RODAR O DOCKER E A APLICAÇÃO #
+# -> Crie a rede seguindo o tutorial do DcokerFileServer
+# -> docker run -it --name clientX --network rede_chat_server -d -p 909X:3000 client # - (cria um container clienteX com a imagem client e conectado a rede criada)
+# -> docker exec -it clientX bash (acessa a linha de comando)
 # -> cd app # - (entra no diretório /app onde esta localizado o .jar)
-# -> java -jar ChatServerClient.jar # - (executa a aplicação)
+# -> java -jar Client.jar # - (executa a aplicação)

@@ -14,7 +14,7 @@ public class InOutSocket {
         this.socket = socket;
 
         System.out.println();
-        System.out.println("Cliente " + socket.getRemoteSocketAddress() + " conectou:");
+        System.out.println("CLIENTE " + socket.getRemoteSocketAddress() + " CONECTOU:");
 
         this.in = new BufferedReader(new InputStreamReader(socket.getInputStream())); // Tratamento de uma Stream para conseguir receber uma String
         this.out = new PrintWriter(socket.getOutputStream(), true); // Tratamento de uma Stream para conseguir passar uma String e não precisar ficar quebrando linha
