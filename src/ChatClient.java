@@ -22,7 +22,7 @@ public class ChatClient implements Runnable{
 
             System.out.print("Digite seu Username: ");
             String username = scan.nextLine();
-            inOutSocket.sendMessage(username); // Envia para o servidor o Username do cliente
+            inOutSocket.sendMessage(username); // Envia para o servidor o Username do cliente para ser inserido na classe UserClient
 
             System.out.println(formatt);
             System.out.println("Padrão de mensagem -> @username@ mensagem");
@@ -42,9 +42,11 @@ public class ChatClient implements Runnable{
             System.out.print("Digite sua mensagem >> ");
             message = scan.nextLine();
 
+            // Garante a certa digitação da mensagem
             while(true) {
                 String brokenMessage[] = message.split("@");
 
+                // Paradas
                 if((brokenMessage.length == 3) || (message.equalsIgnoreCase("!exit"))) break;
 
                 System.out.println(formatt);
@@ -59,6 +61,7 @@ public class ChatClient implements Runnable{
         } while (!message.equalsIgnoreCase("!exit"));
     }
 
+    // Recebe as mensagens direcionadas pelo servidor
     @Override
     public void run() {
         String message;

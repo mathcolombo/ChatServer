@@ -9,7 +9,7 @@ public class Server {
 
     public static final int PORT = 8080;
     private ServerSocket serverSocket;
-    private final List<UserClient> connectedClients = Collections.synchronizedList(new ArrayList<>());
+    private final List<UserClient> connectedClients = Collections.synchronizedList(new ArrayList<>()); // Armazena os clientes conectados
 
     public void start() throws IOException{
         String LOCAL_IP = InetAddress.getLocalHost().getHostAddress(); // Armazena o IP local
@@ -24,10 +24,10 @@ public class Server {
         while(true) {
             InOutSocket inOutSocket = new InOutSocket(serverSocket.accept());
 
-            UserClient userClient = new UserClient(inOutSocket, inOutSocket.getMessage());
+            UserClient userClient = new UserClient(inOutSocket, inOutSocket.getMessage()); // Cria um novo objeto UserClient e recebe o username enviado
             connectedClients.add(userClient);
 
-            new Thread (() -> clientMessageLoop(userClient)).start(); // Thread que cuida das mensagens recebidas
+            new Thread (() -> clientMessageLoop(userClient)).start(); // Garante o a sequência de forma assíncrona
         }
     }
 
@@ -43,7 +43,7 @@ public class Server {
                     connectedClients.remove(userClient);
                     disconnectionAlert(userClient, "@" + userClient.getName() + "@" + " se desconectou");
                     System.out.println();
-                    System.out.println("CLIENTE " + userClient.getIpUser().getRemoteSocketAddressToString() + " SE DESCONECTOU:"); // mostra no servidor
+                    System.out.println("CLIENTE " + userClient.getIpUser().getRemoteSocketAddressToString() + " SE DESCONECTOU:"); // Mostra no servidor
                     return;
                 }
                 sendMessageToOneClient(userClient, message);
